@@ -6,7 +6,7 @@ pipeline {
     }
      environment { 
         packageVersion = ''
-        nexusURL = '172.31.5.95:8081'
+        nexusURL = '172.31.83.247:8081'
     }
     options {
         timeout(time: 1, unit: 'HOURS')
@@ -37,7 +37,28 @@ pipeline {
                 ls -ltr
             """
             }
-        }
+        stage ('publish artifact'){
+            steps {
+                sh """
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: "${nexusURL}",
+                        groupId: 'com.roboshop',
+                        version: "${packageVersion}",
+                        repository: 'catalogue',
+                        credentialsId: 'nexus-auth',
+                        artifacts: [
+                            [artifactId: catalogue,
+                            classifier: '',
+                            file: 'catalogue.zip',
+                            type: 'zip']
+                        ]
+                    )
+                """
+            
+    }
+    }
         stage ('Testing') {
            steps {
             echo 'Testing...'
