@@ -4,8 +4,13 @@ pipeline {
             label 'AGENT-1'
         }
     }
-    environment {
+     environment { 
         packageVersion = ''
+        nexusURL = '172.31.5.95:8081'
+    }
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
     }
     stages {
         stage('Get the version') {
@@ -29,6 +34,7 @@ pipeline {
                 sh """
                 ls -la
                 zip -q -r catalogue.zip ./* -x ".git" -x "*.zip"
+                ls -ltr
             """
             }
         }
