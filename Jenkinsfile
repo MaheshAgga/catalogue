@@ -28,6 +28,7 @@ pipeline {
             steps {
                 sh """
                 ls -la
+                zip -r catalogue.zip ./* -x ".git" -x "*.zip"
             """
             }
         }
@@ -46,6 +47,7 @@ pipeline {
     post {
         always {
             echo 'I will always says HareKrishna HareRama......'
+            deleteDir()
         }
         failure{
             echo 'failure'
