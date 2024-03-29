@@ -37,7 +37,8 @@ pipeline {
                 ls -ltr
             """
             }
-        stage ('publish artifact'){
+        }
+        stage('publish artifact'){
             steps {
                 sh """
                     nexusArtifactUploader(
@@ -56,9 +57,8 @@ pipeline {
                         ]
                     )
                 """
-            
-    }
-    }
+            }
+        }
         stage ('Testing') {
            steps {
             echo 'Testing...'
