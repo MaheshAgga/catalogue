@@ -40,8 +40,8 @@ pipeline {
         }
         stage('publish artifact'){
             steps {
-                sh """
-                    nexusArtifactUploader(
+                
+                nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'http',
                         nexusUrl: "${nexusURL}",
@@ -54,9 +54,9 @@ pipeline {
                             classifier: '',
                             file: 'catalogue.zip',
                             type: 'zip']
-                        ]
-                    )
-                """
+                    ]
+                )
+                
             }
         }
         stage ('Testing') {
