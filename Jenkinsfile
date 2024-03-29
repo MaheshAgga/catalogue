@@ -79,7 +79,7 @@ pipeline {
             echo 'failure'
         }
         success{
-            echo 'success'
+            echo 'krishna success'
         }
     }
 }
