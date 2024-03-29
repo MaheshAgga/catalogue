@@ -23,5 +23,27 @@ pipeline {
 
             }
         }
+        stage ('Testing') {
+           steps {
+            echo 'Testing...'
+           }
+        }
+        stage ('Deploy') {
+            steps {
+                echo 'Deploy...'
+            }
+        }
+    }
+    //post build
+    post {
+        always {
+            echo 'I will always says HareKrishna HareRama'
+        }
+        failure{
+            echo 'failure'
+        }
+        success{
+            echo 'success'
+        }
     }
 }
