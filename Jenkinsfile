@@ -8,9 +8,9 @@ pipeline {
         packageVersion = ''
         nexusURL = '172.31.94.95:8081'
     }
-    options {
-        timeout(time: 1, unit: 'HOURS')
-        disableConcurrentBuilds()
+    // options {
+    //     timeout(time: 1, unit: 'HOURS')
+    //     disableConcurrentBuilds()
     }
     stages {
         stage('Get the version') {
@@ -38,26 +38,26 @@ pipeline {
             """
             }
         }
-        stage('publish artifact'){
-            steps {
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: "${nexusURL}",
-                    groupId: 'com.roboshop',
-                    version: "${packageVersion}",
-                    repository: 'catalogue',
-                    credentialsId: 'nexus-auth',
-                    artifacts: [
-                        [artifactId: catalogue,
-                        classifier: '',
-                        file: 'catalogue.zip',
-                        type: 'zip']
-                    ]
-                )
+        // stage('publish artifact'){
+        //     steps {
+        //         nexusArtifactUploader(
+        //             nexusVersion: 'nexus3',
+        //             protocol: 'http',
+        //             nexusUrl: "${nexusURL}",
+        //             groupId: 'com.roboshop',
+        //             version: "${packageVersion}",
+        //             repository: 'catalogue',
+        //             credentialsId: 'nexus-auth',
+        //             artifacts: [
+        //                 [artifactId: catalogue,
+        //                 classifier: '',
+        //                 file: 'catalogue.zip',
+        //                 type: 'zip']
+        //             ]
+        //         )
                 
-            }
-        }
+        //     }
+        // }
         stage ('Testing') {
            steps {
             echo 'Testing....'
