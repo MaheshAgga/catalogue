@@ -38,6 +38,7 @@ pipeline {
             """
             }
         }
+        
         stage('publish artifact'){
             steps {
                 nexusArtifactUploader(
@@ -65,7 +66,10 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-                echo 'Deploy...'
+                build job: "catalogue-deploy" , wait: true , parameters:[
+                    string(name :'version', value : "${packageVersion}")
+                    string(name : 'environment' , value: 'dev')
+                ]
             }
         }
         
